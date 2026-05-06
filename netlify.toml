@@ -2,6 +2,28 @@
   publish = "."
   functions = "netlify/functions"
 
+# ── Page redirects (clean URLs without .html extension) ──
+[[redirects]]
+  from = "/projects"
+  to = "/projects.html"
+  status = 200
+
+[[redirects]]
+  from = "/skills"
+  to = "/skills.html"
+  status = 200
+
+[[redirects]]
+  from = "/chat"
+  to = "/chat.html"
+  status = 200
+
+# ── Catch-all: any unknown path → 404 page ──
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
+
 [[headers]]
   for = "/*"
   [headers.values]
