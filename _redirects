@@ -1,7 +1,0 @@
-# Clean URL rewrites (no .html needed in browser)
-/projects    /projects.html    200
-/skills      /skills.html      200
-/chat        /chat.html        200
-
-# Catch-all 404
-/*           /index.html       404
