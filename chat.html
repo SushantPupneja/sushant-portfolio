@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Recruiter Chat — Sushant Pupneja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --border:#1e2d47;
+    --accent:#00d4ff; --accent2:#7c3aed; --accent3:#10b981;
+    --text:#e2e8f0; --muted:#64748b; --heading:#f8fafc;
+    --glow:0 0 40px rgba(0,212,255,0.15);
+    --user-bubble:#1a2d4a; --bot-bubble:#131c2e;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;height:100%;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;overflow:hidden;height:100%;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(10,14,26,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--heading);text-decoration:none;letter-spacing:-0.02em;}
+  .nav-logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--accent);}
+  .nav-cta{font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;color:var(--heading);border:1px solid var(--border);padding:0.5rem 1.25rem;border-radius:4px;text-decoration:none;transition:all 0.2s;display:flex;align-items:center;gap:0.5rem;}
+  .nav-cta:hover{border-color:var(--accent);color:var(--accent);}
+
+  .chat-layout{position:fixed;top:65px;bottom:0;left:0;right:0;z-index:1;display:grid;grid-template-columns:300px 1fr;}
+
+  .chat-sidebar{border-right:1px solid var(--border);background:rgba(17,24,39,0.95);display:flex;flex-direction:column;padding:2rem 1.5rem;overflow-y:auto;}
+  .sidebar-avatar{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--bg);margin-bottom:1rem;flex-shrink:0;}
+  .sidebar-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--heading);margin-bottom:0.2rem;}
+  .sidebar-role{font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem;}
+  .sidebar-status{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--accent3);margin-bottom:2rem;}
+  .sidebar-status::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent3);animation:pulse 2s infinite;flex-shrink:0;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+  .sidebar-divider{border:none;border-top:1px solid var(--border);margin-bottom:1.5rem;}
+  .sidebar-section{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+  .quick-btn{display:block;width:100%;text-align:left;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--text);cursor:pointer;transition:all 0.2s;margin-bottom:0.5rem;line-height:1.4;}
+  .quick-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,0.04);}
+  .sidebar-links{margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--border);}
+  .sidebar-link{display:flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.82rem;text-decoration:none;padding:0.4rem 0;transition:color 0.2s;}
+  .sidebar-link:hover{color:var(--accent);}
+
+  .chat-main{display:flex;flex-direction:column;background:rgba(10,14,26,0.6);}
+  .chat-header{padding:1.25rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(17,24,39,0.7);backdrop-filter:blur(10px);}
+  .chat-header-info{display:flex;align-items:center;gap:1rem;}
+  .agent-dot{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+  .agent-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--heading);}
+  .agent-sub{font-size:0.75rem;color:var(--accent3);}
+  .chat-header-badge{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:0.35rem 0.75rem;border-radius:4px;}
+
+  .messages-container{flex:1;overflow-y:auto;padding:2rem;display:flex;flex-direction:column;gap:1.5rem;scroll-behavior:smooth;}
+  .messages-container::-webkit-scrollbar{width:4px;}
+  .messages-container::-webkit-scrollbar-track{background:transparent;}
+  .messages-container::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+
+  .message{display:flex;gap:0.85rem;max-width:80%;animation:msgIn 0.3s ease;}
+  @keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .message.user{align-self:flex-end;flex-direction:row-reverse;}
+  .msg-avatar{width:34px;height:34px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.85rem;}
+  .msg-avatar.bot{background:linear-gradient(135deg,var(--accent),var(--accent2));}
+  .msg-avatar.user{background:var(--surface2);border:1px solid var(--border);color:var(--text);}
+  .msg-bubble{border-radius:12px;padding:1rem 1.25rem;font-size:0.9rem;line-height:1.75;}
+  .bot .msg-bubble{background:var(--bot-bubble);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px;}
+  .user .msg-bubble{background:var(--user-bubble);border:1px solid rgba(0,212,255,0.2);color:var(--text);border-bottom-right-radius:4px;}
+  .msg-bubble strong{color:var(--heading);}
+  .msg-bubble code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:rgba(0,212,255,0.08);color:var(--accent);padding:0.1rem 0.4rem;border-radius:4px;}
+
+  .typing-indicator{display:flex;align-items:center;gap:0.85rem;}
+  .typing-dots{display:flex;gap:4px;align-items:center;padding:0.75rem 1rem;background:var(--bot-bubble);border:1px solid var(--border);border-radius:12px;border-bottom-left-radius:4px;}
+  .typing-dots span{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:dot 1.4s infinite;}
+  .typing-dots span:nth-child(2){animation-delay:0.2s;}
+  .typing-dots span:nth-child(3){animation-delay:0.4s;}
+  @keyframes dot{0%,80%,100%{transform:scale(0.7);opacity:0.5;}40%{transform:scale(1);opacity:1;}}
+
+  .input-area{padding:1.25rem 2rem;border-top:1px solid var(--border);background:rgba(17,24,39,0.8);backdrop-filter:blur(10px);}
+  .input-wrap{display:flex;align-items:flex-end;gap:0.75rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.75rem 1rem;transition:border-color 0.2s;}
+  .input-wrap:focus-within{border-color:rgba(0,212,255,0.4);}
+  #userInput{flex:1;background:none;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:0.92rem;color:var(--text);resize:none;min-height:24px;max-height:120px;line-height:1.6;}
+  #userInput::placeholder{color:var(--muted);}
+  #sendBtn{background:var(--accent);border:none;width:38px;height:38px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;}
+  #sendBtn:hover{background:#00b8d9;transform:scale(1.05);}
+  #sendBtn:disabled{background:var(--border);cursor:not-allowed;transform:none;}
+  .input-hint{font-size:0.72rem;color:var(--muted);margin-top:0.5rem;text-align:center;}
+
+  .welcome-chips{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem;}
+  .welcome-chip{font-size:0.78rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--accent);padding:0.3rem 0.75rem;border-radius:20px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+  .welcome-chip:hover{background:rgba(0,212,255,0.12);}
+
+  /* Error toast */
+  .error-toast{background:#2d1b1b;border:1px solid #7f1d1d;color:#fca5a5;border-radius:8px;padding:0.75rem 1rem;font-size:0.85rem;margin-bottom:0.5rem;}
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;} .nav-links{display:none;}
+    .chat-layout{grid-template-columns:1fr;}
+    .chat-sidebar{display:none;}
+    .chat-header{padding:1rem 1.25rem;}
+    .messages-container{padding:1.25rem;}
+    .input-area{padding:1rem 1.25rem;}
+    .message{max-width:95%;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SP<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="chat.html" class="active">Ask AI</a></li>
+  </ul>
+  <a href="index.html" class="nav-cta">← Back to Portfolio</a>
+</nav>
+
+<div class="chat-layout">
+  <div class="chat-sidebar">
+    <div class="sidebar-avatar">SP</div>
+    <div class="sidebar-name">Sushant Pupneja</div>
+    <div class="sidebar-role">Senior IoT &amp; Platform Engineer</div>
+    <div class="sidebar-status">Available for opportunities</div>
+    <hr class="sidebar-divider" />
+    <div class="sidebar-section">Quick Questions</div>
+    <button class="quick-btn" onclick="sendQuick('What is Sushant\'s experience with IoT platforms?')">🔗 IoT platform experience</button>
+    <button class="quick-btn" onclick="sendQuick('What programming languages and frameworks does Sushant use?')">💻 Tech stack &amp; languages</button>
+    <button class="quick-btn" onclick="sendQuick('Tell me about the most significant projects Sushant has worked on')">🚀 Key projects overview</button>
+    <button class="quick-btn" onclick="sendQuick('What industries has Sushant worked in and what makes him unique?')">🌐 Industries &amp; background</button>
+    <button class="quick-btn" onclick="sendQuick('What roles would Sushant be a good fit for?')">🎯 Role fit &amp; availability</button>
+    <button class="quick-btn" onclick="sendQuick('How can I contact Sushant?')">📧 Contact information</button>
+    <div class="sidebar-links">
+      <a href="mailto:sushant_pupneja@yahoo.com" class="sidebar-link">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        sushant_pupneja@yahoo.com
+      </a>
+      <a href="tel:+97466475075" class="sidebar-link">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.48h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.27-.86a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 17z"/></svg>
+        +974-66475075
+      </a>
+      <a href="projects.html" class="sidebar-link">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+        View All Projects
+      </a>
+    </div>
+  </div>
+
+  <div class="chat-main">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="agent-dot">🤖</div>
+        <div>
+          <div class="agent-name">Sushant's AI Agent</div>
+          <div class="agent-sub">● Online · Knows everything about Sushant</div>
+        </div>
+      </div>
+      <div class="chat-header-badge">Powered by Claude AI</div>
+    </div>
+
+    <div class="messages-container" id="messages">
+      <div class="message bot">
+        <div class="msg-avatar bot">🤖</div>
+        <div>
+          <div class="msg-bubble">
+            Hi there! 👋 I'm an AI agent that knows everything about <strong>Sushant Pupneja</strong> — his projects, skills, experience, and background.<br><br>
+            I'm here to help you get to know him better. Ask me anything!
+            <div class="welcome-chips">
+              <span class="welcome-chip" onclick="sendQuick('What is Sushant\'s experience with IoT?')">IoT experience</span>
+              <span class="welcome-chip" onclick="sendQuick('What tech stack does Sushant use?')">Tech stack</span>
+              <span class="welcome-chip" onclick="sendQuick('Tell me about Sushant\'s key projects')">Key projects</span>
+              <span class="welcome-chip" onclick="sendQuick('What roles would Sushant be a good fit for?')">Role fit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-wrap">
+        <textarea id="userInput" placeholder="Ask about Sushant's experience, projects, skills…" rows="1"></textarea>
+        <button id="sendBtn" onclick="sendMessage()">
+          <svg width="16" height="16" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="input-hint">Press Enter to send · Shift+Enter for new line</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── All API calls go to the Netlify Function proxy ──
+  // The actual Anthropic API key lives ONLY in Netlify's env variables,
+  // never in this file or in the browser.
+  const PROXY_URL = "/.netlify/functions/chat";
+
+  let conversationHistory = [];
+
+  async function callProxy(userMessage) {
+    conversationHistory.push({ role: "user", content: userMessage });
+
+    const response = await fetch(PROXY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: conversationHistory }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data.text || "Sorry, I couldn't generate a response.";
+    conversationHistory.push({ role: "assistant", content: text });
+    return text;
+  }
+
+  function formatMessage(text) {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/`(.+?)`/g, "<code>$1</code>")
+      .replace(/\n- /g, "\n• ")
+      .replace(/\n/g, "<br/>");
+  }
+
+  function addMessage(text, role) {
+    const container = document.getElementById("messages");
+    const div = document.createElement("div");
+    div.className = `message ${role}`;
+    div.innerHTML = `
+      <div class="msg-avatar ${role}">${role === "bot" ? "🤖" : "👤"}</div>
+      <div class="msg-bubble">${formatMessage(text)}</div>
+    `;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function addTyping() {
+    const container = document.getElementById("messages");
+    const div = document.createElement("div");
+    div.className = "message bot";
+    div.id = "typing";
+    div.innerHTML = `
+      <div class="msg-avatar bot">🤖</div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
+    `;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function removeTyping() {
+    const el = document.getElementById("typing");
+    if (el) el.remove();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const btn = document.getElementById("sendBtn");
+    const text = input.value.trim();
+    if (!text) return;
+
+    input.value = "";
+    input.style.height = "auto";
+    addMessage(text, "user");
+    btn.disabled = true;
+    addTyping();
+
+    try {
+      const reply = await callProxy(text);
+      removeTyping();
+      addMessage(reply, "bot");
+    } catch (e) {
+      removeTyping();
+      addMessage(
+        "Sorry, I'm having trouble connecting right now. Please reach out to Sushant directly at **sushant_pupneja@yahoo.com** or **+974-66475075**.",
+        "bot"
+      );
+    } finally {
+      btn.disabled = false;
+      input.focus();
+    }
+  }
+
+  function sendQuick(q) {
+    document.getElementById("userInput").value = q;
+    sendMessage();
+  }
+
+  const input = document.getElementById("userInput");
+  input.addEventListener("input", function () {
+    this.style.height = "auto";
+    this.style.height = Math.min(this.scrollHeight, 120) + "px";
+  });
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+</script>
+</body>
+</html>
