@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skills — Sushant Pupneja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --border:#1e2d47;
+    --accent:#00d4ff; --accent2:#7c3aed; --accent3:#10b981;
+    --text:#e2e8f0; --muted:#64748b; --heading:#f8fafc;
+    --glow:0 0 40px rgba(0,212,255,0.15);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(10,14,26,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--heading);text-decoration:none;letter-spacing:-0.02em;}
+  .nav-logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--accent);}
+  .nav-cta{font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;color:var(--accent);border:1px solid var(--accent);padding:0.5rem 1.25rem;border-radius:4px;text-decoration:none;transition:all 0.2s;}
+  .nav-cta:hover{background:var(--accent);color:var(--bg);}
+
+  .page-header{position:relative;z-index:1;padding:8rem 4rem 3rem;max-width:1200px;margin:0 auto;}
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;}
+  h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,4vw,3.5rem);letter-spacing:-0.03em;color:var(--heading);margin-bottom:1rem;line-height:1.1;}
+  h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .page-desc{color:var(--muted);max-width:520px;font-size:1rem;font-weight:300;}
+
+  .skills-section{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:1rem 4rem 6rem;}
+  .skills-block{margin-bottom:3rem;}
+  .skills-block-title{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;}
+  .skills-block-title h2{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--heading);letter-spacing:-0.01em;}
+  .block-line{flex:1;height:1px;background:var(--border);}
+  .block-icon{font-size:1.3rem;}
+
+  .skills-grid{display:flex;flex-wrap:wrap;gap:0.75rem;}
+
+  .skill-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:1rem 1.25rem;transition:all 0.2s;position:relative;overflow:hidden;
+    min-width:140px;
+  }
+  .skill-card:hover{border-color:rgba(0,212,255,0.35);transform:translateY(-2px);box-shadow:var(--glow);}
+  .skill-name{font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--text);font-weight:500;margin-bottom:0.5rem;}
+  .skill-bar-bg{height:3px;background:var(--border);border-radius:100px;overflow:hidden;}
+  .skill-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1s ease;}
+  .skill-card.green .skill-bar{background:linear-gradient(90deg,var(--accent3),#059669);}
+  .skill-card.purple .skill-bar{background:linear-gradient(90deg,var(--accent2),#6d28d9);}
+  .skill-card.orange .skill-bar{background:linear-gradient(90deg,#f59e0b,#d97706);}
+
+  /* PROFICIENCY LEGEND */
+  .legend{display:flex;gap:1.5rem;margin-bottom:2.5rem;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--muted);}
+  .legend-dot{width:8px;height:8px;border-radius:50%;}
+
+  /* SOFT SKILLS */
+  .soft-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;}
+  .soft-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;text-align:center;transition:all 0.2s;}
+  .soft-card:hover{border-color:rgba(0,212,255,0.2);}
+  .soft-icon{font-size:1.8rem;margin-bottom:0.5rem;}
+  .soft-name{font-size:0.85rem;color:var(--text);font-weight:500;}
+
+  /* EDUCATION */
+  .edu-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
+  .edu-icon{font-size:3rem;}
+  .edu-degree{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--heading);margin-bottom:0.3rem;}
+  .edu-school{font-size:0.88rem;color:var(--muted);}
+
+  .chat-fab{position:fixed;bottom:2rem;right:2rem;z-index:200;display:flex;align-items:center;gap:0.75rem;background:var(--accent);color:var(--bg);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;padding:0.85rem 1.5rem;border-radius:100px;cursor:pointer;border:none;box-shadow:0 8px 30px rgba(0,212,255,0.35);transition:all 0.2s;text-decoration:none;}
+  .chat-fab:hover{background:#00b8d9;transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,212,255,0.45);}
+  footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  footer p{font-size:0.82rem;color:var(--muted);}
+  footer p span{color:var(--accent);}
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;} .nav-links{display:none;}
+    .page-header,.skills-section{padding-left:1.5rem;padding-right:1.5rem;}
+    .page-header{padding-top:7rem;}
+    footer{padding:2rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SP<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="skills.html" class="active">Skills</a></li>
+    <li><a href="chat.html">Ask AI</a></li>
+  </ul>
+  <a href="chat.html" class="nav-cta">Chat with AI ↗</a>
+</nav>
+
+<div class="page-header">
+  <div class="section-label">// EXPERTISE</div>
+  <h1>Skills &amp; <span>Competencies</span></h1>
+  <p class="page-desc">Full-stack IoT engineering — from device protocol layers all the way to cloud infrastructure and data pipelines.</p>
+</div>
+
+<div class="skills-section">
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Expert</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>Proficient</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div>Working Knowledge</div>
+  </div>
+
+  <!-- LANGUAGES & FRAMEWORKS -->
+  <div class="skills-block">
+    <div class="skills-block-title">
+      <span class="block-icon">💻</span>
+      <h2>Languages &amp; Frameworks</h2>
+      <div class="block-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-name">Python</div><div class="skill-bar-bg"><div class="skill-bar" style="width:95%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">Django / DRF</div><div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">Node.js</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">Express.js</div><div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">REST APIs</div><div class="skill-bar-bg"><div class="skill-bar" style="width:95%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">Microservices</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+    </div>
+  </div>
+
+  <!-- IoT PLATFORMS -->
+  <div class="skills-block">
+    <div class="skills-block-title">
+      <span class="block-icon">📡</span>
+      <h2>IoT Platforms &amp; Protocols</h2>
+      <div class="block-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card purple"><div class="skill-name">Cumulocity IoT</div><div class="skill-bar-bg"><div class="skill-bar" style="width:95%"></div></div></div>
+      <div class="skill-card purple"><div class="skill-name">MQTT</div><div class="skill-bar-bg"><div class="skill-bar" style="width:92%"></div></div></div>
+      <div class="skill-card purple"><div class="skill-name">Mosquitto Broker</div><div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div></div>
+      <div class="skill-card purple"><div class="skill-name">Cedalo Platform</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card purple"><div class="skill-name">RabbitMQ</div><div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div></div>
+      <div class="skill-card purple"><div class="skill-name">TCP Agent</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card purple"><div class="skill-name">Memcached</div><div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div></div>
+    </div>
+  </div>
+
+  <!-- INFRASTRUCTURE -->
+  <div class="skills-block">
+    <div class="skills-block-title">
+      <span class="block-icon">☁️</span>
+      <h2>Cloud &amp; Infrastructure</h2>
+      <div class="block-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card green"><div class="skill-name">Microsoft Azure</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card green"><div class="skill-name">AWS</div><div class="skill-bar-bg"><div class="skill-bar" style="width:75%"></div></div></div>
+      <div class="skill-card green"><div class="skill-name">Docker</div><div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div></div>
+      <div class="skill-card green"><div class="skill-name">HashiCorp Nomad</div><div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div></div>
+      <div class="skill-card green"><div class="skill-name">GitLab CI/CD</div><div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div></div>
+    </div>
+  </div>
+
+  <!-- DATABASES -->
+  <div class="skills-block">
+    <div class="skills-block-title">
+      <span class="block-icon">🗄️</span>
+      <h2>Databases &amp; Storage</h2>
+      <div class="block-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card orange"><div class="skill-name">PostgreSQL</div><div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div></div>
+      <div class="skill-card orange"><div class="skill-name">MongoDB</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card orange"><div class="skill-name">Amazon Redshift</div><div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div></div>
+    </div>
+  </div>
+
+  <!-- PRINCIPLES -->
+  <div class="skills-block">
+    <div class="skills-block-title">
+      <span class="block-icon">🏗️</span>
+      <h2>Architecture &amp; Principles</h2>
+      <div class="block-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-name">SOLID Principles</div><div class="skill-bar-bg"><div class="skill-bar" style="width:92%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">Data Model Design</div><div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">Real-time Analytics</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">Batch Processing</div><div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div></div>
+      <div class="skill-card"><div class="skill-name">ORM Patterns</div><div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+    </div>
+  </div>
+
+  <!-- SOFT SKILLS / TOOLS -->
+  <div class="skills-block">
+    <div class="skills-block-title">
+      <span class="block-icon">🧰</span>
+      <h2>Collaboration &amp; Tools</h2>
+      <div class="block-line"></div>
+    </div>
+    <div class="soft-grid">
+      <div class="soft-card"><div class="soft-icon">📋</div><div class="soft-name">Trello</div></div>
+      <div class="soft-card"><div class="soft-icon">✅</div><div class="soft-name">Asana</div></div>
+      <div class="soft-card"><div class="soft-icon">🗺️</div><div class="soft-name">Miro</div></div>
+      <div class="soft-card"><div class="soft-icon">🦊</div><div class="soft-name">GitLab</div></div>
+      <div class="soft-card"><div class="soft-icon">🐳</div><div class="soft-name">Docker</div></div>
+      <div class="soft-card"><div class="soft-icon">🔁</div><div class="soft-name">Agile / Scrum</div></div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="skills-block">
+    <div class="skills-block-title">
+      <span class="block-icon">🎓</span>
+      <h2>Education</h2>
+      <div class="block-line"></div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-degree">Bachelor of Technology (B.Tech)</div>
+        <div class="edu-school">CEC Chandigarh · Computer Engineering</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 <span>Sushant Pupneja</span></p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="font-size:0.82rem;color:var(--muted);text-decoration:none;">Home</a>
+    <a href="projects.html" style="font-size:0.82rem;color:var(--muted);text-decoration:none;">Projects</a>
+    <a href="skills.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;">Skills</a>
+    <a href="chat.html" style="font-size:0.82rem;color:var(--muted);text-decoration:none;">AI Chat</a>
+  </div>
+</footer>
+
+<a href="chat.html" class="chat-fab">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  Chat with AI
+</a>
+
+</body>
+</html>

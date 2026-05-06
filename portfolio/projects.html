@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects — Sushant Pupneja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --border: #1e2d47;
+    --accent: #00d4ff; --accent2: #7c3aed; --accent3: #10b981;
+    --text: #e2e8f0; --muted: #64748b; --heading: #f8fafc;
+    --glow: 0 0 40px rgba(0,212,255,0.15);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; opacity:0.4; }
+  body::after { content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px); background-size:60px 60px; pointer-events:none; z-index:0; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.2rem 4rem; background:rgba(10,14,26,0.85); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; color:var(--heading); text-decoration:none; letter-spacing:-0.02em; }
+  .nav-logo span { color:var(--accent); }
+  .nav-links { display:flex; gap:2.5rem; list-style:none; }
+  .nav-links a { font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--muted); text-decoration:none; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+  .nav-cta { font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent); border:1px solid var(--accent); padding:0.5rem 1.25rem; border-radius:4px; text-decoration:none; transition:all 0.2s; }
+  .nav-cta:hover { background:var(--accent); color:var(--bg); }
+  .page-header { position:relative; z-index:1; padding:8rem 4rem 3rem; max-width:1200px; margin:0 auto; }
+  .section-label { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--accent); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.75rem; }
+  h1 { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2.2rem,4vw,3.5rem); letter-spacing:-0.03em; color:var(--heading); margin-bottom:1rem; line-height:1.1; }
+  h1 span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .page-desc { color:var(--muted); max-width:520px; font-size:1rem; font-weight:300; }
+
+  /* FILTER TABS */
+  .filter-row { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:0 4rem 2rem; display:flex; gap:0.75rem; flex-wrap:wrap; }
+  .filter-btn { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--muted); background:var(--surface); border:1px solid var(--border); padding:0.45rem 1rem; border-radius:6px; cursor:pointer; transition:all 0.2s; letter-spacing:0.05em; text-transform:uppercase; }
+  .filter-btn:hover, .filter-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,0.05); }
+
+  /* PROJECTS GRID */
+  .projects-section { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:0 4rem 6rem; }
+  .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(350px,1fr)); gap:1.5rem; }
+
+  .project-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:2rem; transition:all 0.25s; position:relative; overflow:hidden;
+  }
+  .project-card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-4px); box-shadow:var(--glow); }
+  .project-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),transparent); }
+  .project-card.iot::before { background:linear-gradient(90deg,var(--accent),transparent); }
+  .project-card.fleet::before { background:linear-gradient(90deg,#f59e0b,transparent); }
+  .project-card.aviation::before { background:linear-gradient(90deg,var(--accent2),transparent); }
+  .project-card.smart::before { background:linear-gradient(90deg,var(--accent3),transparent); }
+
+  .proj-meta { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+  .proj-industry { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--accent3); letter-spacing:0.1em; text-transform:uppercase; }
+  .proj-period { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted); }
+  .proj-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1.15rem; color:var(--heading); margin-bottom:0.4rem; line-height:1.3; }
+  .proj-company { font-size:0.82rem; color:var(--muted); margin-bottom:1rem; display:flex; align-items:center; gap:0.4rem; }
+  .proj-geo { font-size:0.78rem; color:var(--muted); opacity:0.7; }
+  .proj-objective { font-size:0.88rem; color:var(--text); opacity:0.8; margin-bottom:1.25rem; line-height:1.75; }
+  .proj-contributions { list-style:none; margin-bottom:1.5rem; }
+  .proj-contributions li { font-size:0.85rem; color:var(--text); opacity:0.75; padding:0.3rem 0 0.3rem 1.2rem; position:relative; line-height:1.6; }
+  .proj-contributions li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:0.75rem; top:0.35rem; }
+  .proj-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+  .proj-tag { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--accent); background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.15); padding:0.2rem 0.6rem; border-radius:4px; }
+  .proj-tag.purple { color:var(--accent2); background:rgba(124,58,237,0.08); border-color:rgba(124,58,237,0.15); }
+  .proj-tag.green { color:var(--accent3); background:rgba(16,185,129,0.08); border-color:rgba(16,185,129,0.15); }
+  .proj-tag.orange { color:#f59e0b; background:rgba(245,158,11,0.08); border-color:rgba(245,158,11,0.15); }
+
+  .chat-fab { position:fixed; bottom:2rem; right:2rem; z-index:200; display:flex; align-items:center; gap:0.75rem; background:var(--accent); color:var(--bg); font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.88rem; padding:0.85rem 1.5rem; border-radius:100px; cursor:pointer; border:none; box-shadow:0 8px 30px rgba(0,212,255,0.35); transition:all 0.2s; text-decoration:none; }
+  .chat-fab:hover { background:#00b8d9; transform:translateY(-2px); box-shadow:0 12px 40px rgba(0,212,255,0.45); }
+  footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:2rem 4rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+  footer p { font-size:0.82rem; color:var(--muted); }
+  footer p span { color:var(--accent); }
+
+  @media (max-width:900px) {
+    nav { padding:1rem 1.5rem; } .nav-links { display:none; }
+    .page-header { padding:7rem 1.5rem 2rem; }
+    .filter-row, .projects-section { padding-left:1.5rem; padding-right:1.5rem; }
+    footer { padding:2rem 1.5rem; }
+    .projects-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SP<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="chat.html">Ask AI</a></li>
+  </ul>
+  <a href="chat.html" class="nav-cta">Chat with AI ↗</a>
+</nav>
+
+<div class="page-header">
+  <div class="section-label">// PORTFOLIO</div>
+  <h1>Selected <span>Projects</span></h1>
+  <p class="page-desc">End-to-end IoT solutions across telecom, aviation, fleet management, and smart infrastructure.</p>
+</div>
+
+<div class="filter-row">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All Projects</button>
+  <button class="filter-btn" onclick="filterCards('iot', this)">IoT</button>
+  <button class="filter-btn" onclick="filterCards('fleet', this)">Fleet</button>
+  <button class="filter-btn" onclick="filterCards('aviation', this)">Aviation</button>
+  <button class="filter-btn" onclick="filterCards('smart', this)">Smart Infra</button>
+</div>
+
+<div class="projects-section">
+  <div class="projects-grid" id="projectsGrid">
+
+    <!-- PROJECT 1 -->
+    <div class="project-card iot" data-cat="iot">
+      <div class="proj-meta">
+        <span class="proj-industry">📡 IoT · Telecom</span>
+        <span class="proj-period">Jan'19 – Present</span>
+      </div>
+      <div class="proj-title">IoT Device Connector</div>
+      <div class="proj-company">Ooredoo <span class="proj-geo">· Doha, Qatar</span></div>
+      <div class="proj-objective">Receive data from heterogeneous device types in a unified standard format, enabling multi-platform distribution.</div>
+      <ul class="proj-contributions">
+        <li>Deployed and managed Cedalo Platform for MQTT Broker</li>
+        <li>Developed Cumulocity Plugin in Python consuming broker data via REST APIs</li>
+        <li>Built Common TCP Agent in Node.js for multi-device type support</li>
+        <li>Device Authentication Service (Python/Django) for device registry and data steering</li>
+        <li>Designed Azure-hosted infrastructure using HashiCorp Nomad</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">Node.js</span>
+        <span class="proj-tag purple">MQTT</span>
+        <span class="proj-tag purple">Cumulocity</span>
+        <span class="proj-tag green">Azure</span>
+        <span class="proj-tag green">Nomad</span>
+        <span class="proj-tag">Django</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card iot" data-cat="iot">
+      <div class="proj-meta">
+        <span class="proj-industry">📡 IoT Integration</span>
+        <span class="proj-period">Jan'19 – Jun'21</span>
+      </div>
+      <div class="proj-title">IoT Devices Integration to Cumulocity</div>
+      <div class="proj-company">EnrichAI – Ooredoo (on-site) <span class="proj-geo">· Doha</span></div>
+      <div class="proj-objective">Integrated diverse device vendors (Concox, Dingtek Sensors, Robustel, Smartbox) into Cumulocity for Waste Management, Asset Tracking, Fleet Management, and Animal Tracking.</div>
+      <ul class="proj-contributions">
+        <li>Worked directly with device vendors on protocol integration</li>
+        <li>Developed device-specific parsers and normalization layers</li>
+        <li>Deployed solutions for smart city and enterprise use cases</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag purple">Cumulocity</span>
+        <span class="proj-tag">Concox</span>
+        <span class="proj-tag">Dingtek</span>
+        <span class="proj-tag">Robustel</span>
+        <span class="proj-tag">Smartbox</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card fleet" data-cat="fleet">
+      <div class="proj-meta">
+        <span class="proj-industry" style="color:#f59e0b">🚛 Fleet Management</span>
+        <span class="proj-period">Apr'18 – Dec'18</span>
+      </div>
+      <div class="proj-title">Advanced Fleet Management</div>
+      <div class="proj-company">EnrichAI <span class="proj-geo">· India</span></div>
+      <div class="proj-objective">Fleet management and driving pattern analytics for 200+ vehicles with real-time processing and end-to-end automation.</div>
+      <ul class="proj-contributions">
+        <li>REST API layer in Node.js/Express + ORM with Python/Django</li>
+        <li>Database design for PostgreSQL, MongoDB, and Redshift analytics</li>
+        <li>Real-time streaming architecture on Cumulocity</li>
+        <li>End-to-end automated data pipeline from device to dashboard</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag orange">Node.js</span>
+        <span class="proj-tag orange">PostgreSQL</span>
+        <span class="proj-tag orange">MongoDB</span>
+        <span class="proj-tag orange">Redshift</span>
+        <span class="proj-tag purple">Cumulocity</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="project-card aviation" data-cat="aviation">
+      <div class="proj-meta">
+        <span class="proj-industry" style="color:var(--accent2)">✈️ Aviation</span>
+        <span class="proj-period">Oct'17 – Mar'18</span>
+      </div>
+      <div class="proj-title">Passenger Analytics — Facial Recognition</div>
+      <div class="proj-company">ZestIoT <span class="proj-geo">· India</span></div>
+      <div class="proj-objective">Converting airport cameras into human intelligence — tracking passenger flow and analysing shopping behaviour for retail insights.</div>
+      <ul class="proj-contributions">
+        <li>Built facial recognition pipeline for passenger tracking</li>
+        <li>Analytics of shopping behaviour in airport retail zones</li>
+        <li>Real-time computer vision processing at camera edge</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag purple">Computer Vision</span>
+        <span class="proj-tag purple">Facial Recognition</span>
+        <span class="proj-tag">Analytics</span>
+        <span class="proj-tag">Python</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 5 -->
+    <div class="project-card aviation" data-cat="aviation">
+      <div class="proj-meta">
+        <span class="proj-industry" style="color:var(--accent2)">✈️ Aviation</span>
+        <span class="proj-period">Apr'17 – Sep'17</span>
+      </div>
+      <div class="proj-title">Aircraft Turnaround Time Optimization</div>
+      <div class="proj-company">ZestIoT <span class="proj-geo">· India</span></div>
+      <div class="proj-objective">Automated real-time visibility of aircraft airside operations, enabling hub control to avoid delays and turn around aircraft on time.</div>
+      <ul class="proj-contributions">
+        <li>Real-time tracking of ground crew and aircraft equipment</li>
+        <li>Automated delay detection and alerting system</li>
+        <li>Hub control dashboard for operational visibility</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag purple">Real-time</span>
+        <span class="proj-tag purple">IoT Sensors</span>
+        <span class="proj-tag">Analytics</span>
+        <span class="proj-tag green">Dashboard</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 6 -->
+    <div class="project-card smart" data-cat="smart">
+      <div class="proj-meta">
+        <span class="proj-industry" style="color:var(--accent3)">⚡ Smart Infrastructure</span>
+        <span class="proj-period">Apr'18 – Jul'18</span>
+      </div>
+      <div class="proj-title">Smart Metering Solution</div>
+      <div class="proj-company">EnrichAI <span class="proj-geo">· India (Gurgaon)</span></div>
+      <div class="proj-objective">Smart metering for newly constructed apartments with prepaid electricity enablement and per-household consumption trend analysis.</div>
+      <ul class="proj-contributions">
+        <li>Deployed smart meter integration for residential apartments</li>
+        <li>Prepaid electricity option for tenants</li>
+        <li>Per-household consumption dashboards and trend analytics</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag green">Smart Meters</span>
+        <span class="proj-tag green">Energy</span>
+        <span class="proj-tag">IoT</span>
+        <span class="proj-tag">Analytics</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 <span>Sushant Pupneja</span></p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="font-size:0.82rem;color:var(--muted);text-decoration:none;">Home</a>
+    <a href="projects.html" style="font-size:0.82rem;color:var(--accent);text-decoration:none;">Projects</a>
+    <a href="skills.html" style="font-size:0.82rem;color:var(--muted);text-decoration:none;">Skills</a>
+    <a href="chat.html" style="font-size:0.82rem;color:var(--muted);text-decoration:none;">AI Chat</a>
+  </div>
+</footer>
+
+<a href="chat.html" class="chat-fab">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  Chat with AI
+</a>
+
+<script>
+function filterCards(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.project-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
