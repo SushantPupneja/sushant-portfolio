@@ -100,11 +100,12 @@
 <div class="page-header">
   <div class="section-label">// PORTFOLIO</div>
   <h1>Selected <span>Projects</span></h1>
-  <p class="page-desc">End-to-end IoT solutions across telecom, aviation, fleet management, and smart infrastructure.</p>
+  <p class="page-desc">IoT, AI, and platform projects spanning telecom, healthcare, aviation, fleet management, and smart infrastructure.</p>
 </div>
 
 <div class="filter-row">
   <button class="filter-btn active" onclick="filterCards('all', this)">All Projects</button>
+  <button class="filter-btn" onclick="filterCards('ai', this)">AI</button>
   <button class="filter-btn" onclick="filterCards('iot', this)">IoT</button>
   <button class="filter-btn" onclick="filterCards('fleet', this)">Fleet</button>
   <button class="filter-btn" onclick="filterCards('aviation', this)">Aviation</button>
@@ -113,6 +114,62 @@
 
 <div class="projects-section">
   <div class="projects-grid" id="projectsGrid">
+
+    <!-- MEDHEED -->
+    <div class="project-card ai" data-cat="ai" style="border-color:rgba(124,58,237,0.3);">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent2),var(--accent));"></div>
+      <div class="proj-meta">
+        <span class="proj-industry" style="color:var(--accent2)">🏥 Healthcare AI · Founder</span>
+        <span class="proj-period">2023 – Present</span>
+      </div>
+      <div class="proj-title">Medheed — AI Health Assistant</div>
+      <div class="proj-company">Medheed (Self-founded) <span class="proj-geo">· Doha &nbsp;<a href="https://www.medheed.health" target="_blank" style="color:var(--accent);text-decoration:none;">medheed.health ↗</a></span></div>
+      <div class="proj-objective">AI-powered healthcare platform bridging complex medical data and clear, actionable patient understanding. Presented at Web Summit Qatar 2026. HIPAA-compliant by design, serving patients, caregivers, and diagnostic labs.</div>
+      <ul class="proj-contributions">
+        <li>CEO, CTIO &amp; Founder — end-to-end product ownership</li>
+        <li>Backend built in Python/Django with REST API architecture</li>
+        <li>AWS infrastructure using Docker-based deployments</li>
+        <li>Multi-LLM AI engine integrating OpenAI, Claude, and DeepSeek</li>
+        <li>WhatsApp Health Assistant via n8n workflows, Twilio &amp; Meta API</li>
+        <li>AI-powered lab report summaries with specialist recommendations</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag purple">OpenAI</span>
+        <span class="proj-tag purple">Claude</span>
+        <span class="proj-tag purple">DeepSeek</span>
+        <span class="proj-tag">Python / Django</span>
+        <span class="proj-tag green">AWS</span>
+        <span class="proj-tag green">Docker</span>
+        <span class="proj-tag">n8n</span>
+        <span class="proj-tag">Twilio</span>
+        <span class="proj-tag">WhatsApp API</span>
+      </div>
+    </div>
+
+    <!-- CUISINEFIT -->
+    <div class="project-card ai" data-cat="ai" style="border-color:rgba(16,185,129,0.25);">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent3),var(--accent2));"></div>
+      <div class="proj-meta">
+        <span class="proj-industry" style="color:var(--accent3)">🍽️ FoodTech · AI</span>
+        <span class="proj-period">2024 – Present</span>
+      </div>
+      <div class="proj-title">CuisineFit — Protein Planner &amp; Recipe Generator</div>
+      <div class="proj-company">Side Project <span class="proj-geo">· &nbsp;<a href="https://cuisinefit.base44.app" target="_blank" style="color:var(--accent);text-decoration:none;">cuisinefit.base44.app ↗</a></span></div>
+      <div class="proj-objective">Personalized daily protein intake recommendations tailored to age, lifestyle, ethnicity, and location — with an AI-driven recipe generator and meal planning dashboard.</div>
+      <ul class="proj-contributions">
+        <li>Designed &amp; developed agentic workflow on n8n for recipe generation</li>
+        <li>Integrated base44 frontend with n8n backend workflow</li>
+        <li>Vibe-coded the full frontend application on base44</li>
+        <li>Features: onboarding, recipe generator, saved plans &amp; favourites dashboard</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag green">n8n Agentic</span>
+        <span class="proj-tag green">base44</span>
+        <span class="proj-tag purple">AI Workflows</span>
+        <span class="proj-tag">Recipe Generator</span>
+        <span class="proj-tag">Nutrition AI</span>
+      </div>
+    </div>
 
     <!-- PROJECT 1 -->
     <div class="project-card iot" data-cat="iot">

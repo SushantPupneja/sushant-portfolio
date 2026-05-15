@@ -1,6 +1,7 @@
 [build]
-  publish = "."
-  functions = "netlify/functions"
+  base = "portfolio"
+  publish = "portfolio"
+  functions = "portfolio/netlify/functions"
 
 # ── Page redirects (clean URLs without .html extension) ──
 [[redirects]]
