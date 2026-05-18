@@ -69,10 +69,14 @@
   .soft-name{font-size:0.85rem;color:var(--text);font-weight:500;}
 
   /* EDUCATION */
-  .edu-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
+  .edu-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;transition:all 0.2s;}
+  .edu-card:hover{border-color:rgba(0,212,255,0.25);}
   .edu-icon{font-size:3rem;}
   .edu-degree{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--heading);margin-bottom:0.3rem;}
   .edu-school{font-size:0.88rem;color:var(--muted);}
+  .edu-badge{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent3);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);padding:0.25rem 0.65rem;border-radius:20px;margin-top:0.5rem;}
+  .edu-link{font-size:0.8rem;color:var(--accent);text-decoration:none;margin-top:0.4rem;display:inline-flex;align-items:center;gap:0.3rem;opacity:0.8;transition:opacity 0.2s;}
+  .edu-link:hover{opacity:1;}
 
   .chat-fab{position:fixed;bottom:2rem;right:2rem;z-index:200;display:flex;align-items:center;gap:0.75rem;background:var(--accent);color:var(--bg);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;padding:0.85rem 1.5rem;border-radius:100px;cursor:pointer;border:none;box-shadow:0 8px 30px rgba(0,212,255,0.35);transition:all 0.2s;text-decoration:none;}
   .chat-fab:hover{background:#00b8d9;transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,212,255,0.45);}
@@ -244,6 +248,19 @@
       <div>
         <div class="edu-degree">Bachelor of Technology (B.Tech)</div>
         <div class="edu-school">CEC Chandigarh · Computer Engineering</div>
+      </div>
+    </div>
+
+    <div class="edu-card" style="border-color:rgba(16,185,129,0.2);">
+      <div class="edu-icon">🧠</div>
+      <div>
+        <div class="edu-degree">Supervised Machine Learning: Regression and Classification</div>
+        <div class="edu-school">Coursera · Andrew Ng (DeepLearning.AI / Stanford)</div>
+        <div class="edu-badge">✓ Verified Certificate</div>
+        <br/>
+        <a href="https://www.coursera.org/account/accomplishments/verify/GYDV3A5M9UPD" target="_blank" class="edu-link">
+          View Certificate ↗
+        </a>
       </div>
     </div>
   </div>
