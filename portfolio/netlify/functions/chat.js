@@ -34,7 +34,8 @@ INDUSTRIES
 Energy, Aviation, E-Commerce, Telecommunications, Healthcare AI, FoodTech
 
 EDUCATION
-Bachelor of Technology (B.Tech) — CEC Chandigarh, Computer Engineering
+- Bachelor of Technology (B.Tech) — CEC Chandigarh, Computer Engineering
+- Supervised Machine Learning: Regression and Classification — Coursera, Andrew Ng (DeepLearning.AI / Stanford), Verified Certificate: https://www.coursera.org/account/accomplishments/verify/GYDV3A5M9UPD
 
 KEY PROJECTS
 
